@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PetalForge - Artistic Flower Arrangement & Pruning Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<style>
+  :root {
+    --color-cream: #fff8f0;
+    --color-pastel: #f0e9e0;
+    --color-accent: #8b5cf6;
+    --color-accent-light: #cdb4db;
+    --color-text-primary: #3a2a22;
+    --color-text-secondary: #5a4636;
+    --font-serif: 'Merriweather', serif;
+    --font-sans: 'Open Sans', sans-serif;
+    --spacing-unit: 16px;
+    --border-radius: 12px;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-cream);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    font-size: 18px;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-serif);
+    color: var(--color-text-primary);
+    margin-top: 0;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 3.5rem;
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-unit);
+  }
+
+  h3 {
+    font-weight: 700;
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-unit);
+  }
+
+  p {
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 24px 48px 24px;
+  }
+
+  header {
+    background: var(--color-pastel);
+    padding: 24px 24px 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  header .logo {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--color-accent);
+    user-select: none;
+  }
+
+  nav a {
+    margin-left: 32px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+  }
+
+  nav a:hover, nav a:focus {
+    color: var(--color-accent);
+  }
+
+  #scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 6px;
+    background: var(--color-accent);
+    width: 0%;
+    z-index: 1000;
+    border-radius: 0 0 12px 12px;
+    transition: width 0.25s ease-out;
+  }
+
+  main {
+    padding-top: 48px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #f9ede6 30%, #f0e9e0 100%);
+    padding: 96px 24px 96px 24px;
+    text-align: center;
+    user-select: none;
+  }
+
+  .hero h1 {
+    font-size: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--color-text-primary);
+  }
+
+  .hero p {
+    font-size: 1.35rem;
+    margin: 32px auto;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+  }
+
+  .hero .btn-primary {
+    background-color: var(--color-accent);
+    color: white;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.25rem;
+    padding: 16px 40px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.25s ease;
+    box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4);
+  }
+
+  .hero .btn-primary:hover,
+  .hero .btn-primary:focus {
+    background-color: #7045c5;
+    outline: none;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.6);
+  }
+
+  section.bouquet-builder {
+    background: #faf6f3;
+    padding: 64px 24px 96px 24px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin: 64px 0;
+  }
+
+  section.bouquet-builder h2 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .flower-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .flower-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 16px;
+    width: 160px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease;
+    user-select: none;
+  }
+  .flower-card:hover, .flower-card.selected {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgb(139 92 246 / 0.25);
+    border: 2px solid var(--color-accent);
+  }
+  .flower-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .flower-card .flower-name {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 6px;
+  }
+  .flower-card .flower-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+  }
+
+  .selected-flowers {
+    margin-top: 48px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .selected-flowers h3 {
+    font-size: 1.8rem;
+    margin-bottom: 24px;
+  }
+  .selected-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+  .selected-item {
+    background: var(--color-pastel);
+    border-radius: 16px;
+    padding: 12px 20px;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    user-select: none;
+  }
+  .selected-item .material-icons {
+    cursor: pointer;
+    margin-left: 12px;
+    font-size: 20px;
+    transition: color 0.3s ease;
+  }
+  .selected-item .material-icons:hover {
+    color: #ccbbff;
+  }
+
+  section {
+    padding: 48px 0;
+  }
+
+  section.content-section {
+    background: var(--color-pastel);
+    border-radius: var(--border-radius);
+    padding: 48px 24px 64px 24px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.05);
+  }
+
+  section.content-section h2 {
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  section.content-section p {
+    text-align: justify;
+  }
+
+  .section-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .section-images img {
+    width: calc(33.333% - 16px);
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow: 0 3px 15px rgb(0 0 0 / 0.1);
+    user-select: none;
+  }
+
+  form#feedback-form {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  form label {
+    font-weight: 600;
+    font-family: var(--font-serif);
+    color: var(--color-text-primary);
+  }
+  form input[type="text"],
+  form input[type="email"],
+  form textarea {
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    font-size: 1rem;
+    font-family: var(--font-sans);
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+  form input:focus,
+  form textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.6);
+  }
+  form textarea {
+    min-height: 120px;
+  }
+  form button {
+    padding: 16px;
+    border: none;
+    background-color: var(--color-accent);
+    color: white;
+    font-weight: 700;
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  }
+  form button:hover,
+  form button:focus {
+    background-color: #7045c5;
+    outline: none;
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.7);
+  }
+
+  .disclaimer {
+    font-size: 0.875rem;
+    color: #7a6e5d;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+    background: #f3eeeb;
+    border-radius: var(--border-radius);
+    text-align: center;
+    user-select: text;
+  }
+
+  .customer-sat {
+    background: var(--color-accent-light);
+    padding: 48px 24px;
+    text-align: center;
+    border-radius: var(--border-radius);
+    margin-top: 96px;
+    box-shadow: 0 6px 25px rgba(139, 92, 246, 0.15);
+    user-select: none;
+  }
+  .customer-sat h2 {
+    color: var(--color-accent);
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+  .customer-sat p {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  footer {
+    background: var(--color-pastel);
+    padding: 32px 24px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    user-select: none;
+  }
+  footer .address {
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  /* Team Minizine style */
+  section#team .team-members {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .team-member {
+    flex: none;
+    width: 70px;
+    text-align: center;
+    font-family: var(--font-serif);
+    user-select: none;
+  }
+  .team-member img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 6px;
+    border: 2px solid var(--color-accent);
+    transition: transform 0.3s ease;
+  }
+  .team-member:hover img,
+  .team-member:focus-within img {
+    transform: scale(1.1);
+    border-color: #7045c5;
+    outline-offset: 4px;
+    outline: 2px solid #7045c5;
+  }
+  .team-member h4 {
+    font-size: 0.85rem;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 840px) {
+    .section-images img {
+      width: calc(50% - 12px);
+    }
+    .flower-card {
+      width: 140px;
+    }
+  }
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 2.7rem;
+    }
+    h2 {
+      font-size: 1.9rem;
+    }
+    .section-images img {
+      width: 100%;
+    }
+    nav a {
+      margin-left: 16px;
+      font-size: 1rem;
+    }
+    .flower-card {
+      width: 100%;
+    }
+    .flower-options {
+      gap: 16px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <header role="banner" aria-label="Primary">
+    <div class="container">
+      <div class="logo" tabindex="0">PetalForge</div>
+      <nav role="navigation" aria-label="Primary navigation">
+     <a href="index.html" tabindex="0"aria-current="page">Home</a>
+        <a href="privacy.html" tabindex="0">Privacy</a>
+        <a href="terms.html" tabindex="0">Terms & conditons</a>
+        <a href="cookies.html"tabindex="0">Cookies</a>
+        <a href="contact.html" tabindex="0">Contact us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" role="region" aria-label="Welcome">
+      <h1>Bold, Artistic Flower Arrangement & Pruning Services</h1>
+      <p>Craft exquisite floral designs that captivate and inspire. Experience the art of nature with PetalForge’s bespoke floral arrangements tailored uniquely to your style.</p>
+      <button class="btn-primary" onclick="document.getElementById('bouquet-builder').scrollIntoView({behavior:'smooth'})" aria-label="Build your custom bouquet">Build Your Bouquet</button>
+    </section>
+
+    <section id="bouquet-builder" class="bouquet-builder" role="region" aria-label="Custom Bouquet Builder">
+      <h2>Create Your Perfect Bouquet</h2>
+      <p style="text-align:center;max-width:700px;margin-left:auto;margin-right:auto;color:var(--color-text-secondary);">Choose flowers from our beautiful selection and build your custom bouquet. Click on flowers to add or remove them from your selection.</p>
+      <div class="flower-options" role="list" aria-label="Flower options">
+        <div class="flower-card" tabindex="0" role="listitem" aria-pressed="false" data-name="Roses" data-desc="Classic red roses representing love and passion.">
+          <img src="f1.png" alt="A bouquet of vivid red roses" loading="lazy" />
+          <div class="flower-name">Roses</div>
+          <div class="flower-desc">Classic red roses representing love and passion.</div>
+        </div>
+        <div class="flower-card" tabindex="0" role="listitem" aria-pressed="false" data-name="Lilies" data-desc="Elegant white lilies for purity and renewal.">
+          <img src="f2.png" alt="Beautiful white lilies in bloom" loading="lazy" />
+          <div class="flower-name">Lilies</div>
+          <div class="flower-desc">Elegant white lilies for purity and renewal.</div>
+        </div>
+        <div class="flower-card" tabindex="0" role="listitem" aria-pressed="false" data-name="Tulips" data-desc="Cheerful pastel tulips symbolizing sunshine and warmth.">
+          <img src="f3.png" alt="Pastel tulips in a spring arrangement" loading="lazy" />
+          <div class="flower-name">Tulips</div>
+          <div class="flower-desc">Cheerful pastel tulips symbolizing sunshine and warmth.</div>
+        </div>
+        <div class="flower-card" tabindex="0" role="listitem" aria-pressed="false" data-name="Orchids" data-desc="Exotic orchids portraying strength and beauty.">
+          <img src="f4.png" alt="Delicate exotic orchids with vivid colors" loading="lazy" />
+          <div class="flower-name">Orchids</div>
+          <div class="flower-desc">Exotic orchids portraying strength and beauty.</div>
+        </div>
+        <div class="flower-card" tabindex="0" role="listitem" aria-pressed="false" data-name="Sunflowers" data-desc="Bright sunflowers bringing joy and vitality.">
+          <img src="f5.png" alt="Sunny bright yellow sunflowers in bloom" loading="lazy" />
+          <div class="flower-name">Sunflowers</div>
+          <div class="flower-desc">Bright sunflowers bringing joy and vitality.</div>
+        </div>
+        <div class="flower-card" tabindex="0" role="listitem" aria-pressed="false" data-name="Daisies" data-desc="Fresh daisies representing innocence and simplicity.">
+          <img src="f6.png" alt="Simple fresh white daisies in a bunch" loading="lazy" />
+          <div class="flower-name">Daisies</div>
+          <div class="flower-desc">Fresh daisies representing innocence and simplicity.</div>
+        </div>
+      </div>
+      <div class="selected-flowers" aria-live="polite" aria-atomic="true" aria-relevant="additions removals" tabindex="0">
+        <h3>Your Selected Flowers</h3>
+        <div class="selected-list" id="selected-list" aria-label="Selected flowers list">
+          <p>No flowers selected yet. Start building your bouquet!</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about-us" class="content-section" role="region" aria-label="About PetalForge Services">
+      <h2>About PetalForge</h2>
+      <p>PetalForge specializes in artistic flower arrangements and expert pruning to bring natural elegance to every occasion. Our team of floral artists is passionately dedicated to creating bespoke bouquets that express emotion, style, and beauty.</p>
+      <p>With over a decade of experience in floral design, PetalForge blends traditional craftsmanship with modern creativity, delivering arrangements for weddings, events, and personal enjoyment that stand out in quality and freshness.</p>
+      <p>The spirit of PetalForge is rooted in love for nature, precision, and attention to detail — ensuring every petal is perfectly placed. We nurture the lifecycle of flowers through artisanal pruning techniques that enhance health and longevity.</p>
+      <p>Our atelier is a sanctuary for creativity where nature’s beauty is embraced with innovative design techniques. From classic bouquets to avant-garde displays, we tirelessly experiment with textures, colors, and forms to craft floral experiences that evoke profound emotion.</p>
+      <p>We believe flowers are language—they tell stories and convey feelings more powerfully than words. PetalForge invites you to celebrate life’s precious moments with artistry that transcends tradition and nurtures the soul.</p>
+     
+    </section>
+       <!-- Preserving other previous content as is -->
+
+    <section id="services" class="content-section" role="region" aria-label="Our Services">
+      <h2>Our Services</h2>
+      <p>PetalForge offers a variety of services in artistic floral design and horticultural pruning to meet your every need. We specialize in:</p>
+      <ul>
+        <li><strong>Custom Floral Arrangements:</strong> Personalized bouquet and centerpiece creations tailored to your event theme and personal style.</li>
+        <li><strong>Event Decoration:</strong> We craft decorative floral installations for weddings, corporate events, and private parties that leave lasting impressions.</li>
+        <li><strong>Seasonal Flower Subscriptions:</strong> Receive fresh, handcrafted floral bouquets delivered to your doorstep regularly with seasonal blooms.</li>
+        <li><strong>Artisan Pruning Services:</strong> Expert pruning for ornamental plants and flowering shrubs to enhance natural beauty and vitality.</li>
+        <li><strong>Consultation & Workshops:</strong> Learn the art of flower arranging and plant care in-person or virtual sessions guided by our experts.</li>
+      </ul>
+      <p>Our attention to detail and botanical expertise combine to create botanical art that brightens homes and events alike.</p>
+      <div class="section-images" aria-label="Images showcasing services">
+        <img src="s1.png" alt="Unique custom floral arrangement on a wooden table" />
+        <img src="s2.png" alt="Elegant wedding floral decoration with pastel flowers" />
+        <img src="s3.png" alt="Florist pruning a flowering shrub carefully" />
+      </div>
+    </section>
+
+    <section id="team" class="content-section" role="region" aria-label="Meet the PetalForge Team">
+      <h2>Meet Our Team</h2>
+      <p>Our dedicated team of florists, horticulturalists, and artists brings passion and professionalism to every project. Each member contributes unique expertise and creative insight to PetalForge’s signature style.</p>
+      <p>Our artisans continuously refine their techniques through workshops and collaborations with botanical experts worldwide, keeping us at the forefront of floral innovations.</p>
+      <p>Collaboration and care are at the heart of our team culture. Every arrangement carries the imprint of teamwork, where creativity and technical skill merge seamlessly to bring your floral dreams to life.</p>
+      <p>We are committed to sustainability and support local flower growers, ensuring our blooms are not just beautiful, but also responsibly sourced for the greatest positive impact on our environment.</p>
+      <div class="team-members" role="list" aria-label="Team members">
+        <div class="team-member" role="listitem" tabindex="0">
+          <img src="t1.png" alt="Photo portrait of Emily, lead floral designer" />
+          <h4>Emily Carter</h4>
+        </div>
+        <div class="team-member" role="listitem" tabindex="0">
+          <img src="t2.png" alt="Photo portrait of David, horticultural expert" />
+          <h4>David Nguyen</h4>
+        </div>
+        <div class="team-member" role="listitem" tabindex="0">
+          <img src="t3.png" alt="Photo portrait of Sophia, workshop instructor" />
+          <h4>Sophia Lee</h4>
+        </div>
+      </div>
+    </section>
+
+    <section id="tips" class="content-section" role="region" aria-label="Flower Arrangement and Pruning Tips">
+      <h2>Expert Tips & Tricks</h2>
+      <p>Enhance your floral skills with some essential tips from PetalForge artisans:</p>
+      <ul>
+        <li><strong>Choose seasonal flowers</strong> for optimal freshness and eco-friendly arrangements. Seasonality ensures blooms at their peak with the least environmental impact.</li>
+        <li><strong>Use clean, sharp tools</strong> for pruning to avoid damage and promote healthy growth. Regularly sterilize your tools to prevent disease spread between plants.</li>
+        <li><strong>Layer flowers</strong> by height and texture to add depth and visual interest. Start with anchoring greens and build focal flowers into the design.</li>
+        <li><strong>Change water daily</strong> and trim stems at a diagonal for longer vase life. This increases water absorption and keeps flowers hydrated.</li>
+        <li><strong>Mix focal flowers with fillers</strong> to achieve balanced and harmonious bouquets. This adds texture and softness, highlighting main blooms.</li>
+        <li><strong>Know your flower care needs</strong>: Different flowers require specific light, water, and temperature conditions—tailor care accordingly.</li>
+        <li><strong>Prune roses properly:</strong> Cut just above an outward-facing bud and remove any dead or crossing branches for healthy shape.</li>
+        <li><strong>Keep foliage out of water</strong> to reduce bacterial growth in your vase and extend flower freshness.</li>
+      </ul>
+      <p>Remember, every flower tells a story — arrange yours with intention and care.</p>
+    </section>
+
+ 
+
+    <!-- Continue with Testimonials, Blog, FAQs, Feedback, Contact, Disclaimer -->
+
+    <section id="testimonials" role="region" aria-label="Customer testimonials">
+      <h2>What Our Customers Say</h2>
+      <div class="testimonial-slider" aria-live="polite" aria-atomic="true">
+        <div class="testimonial" id="testimonial-0">
+          "PetalForge transformed our wedding reception with breathtaking floral art. The bouquets were stunning and fresh!"
+          <strong>- Lauren M.</strong>
+        </div>
+        <div class="testimonial" id="testimonial-1" hidden>
+          "Their pruning service renewed my garden’s vitality — it looks healthier than ever with vibrant blooms."
+          <strong>- Michael R.</strong>
+        </div>
+        <div class="testimonial" id="testimonial-2" hidden>
+          "I loved building my own bouquet with their custom builder. Friendly staff and gorgeous flowers."
+          <strong>- Hannah T.</strong>
+        </div>
+        <div class="testimonial" id="testimonial-3" hidden>
+          "Excellent seasonal flower subscription! Always bright and fresh — a joy to receive every month."
+          <strong>- David F.</strong>
+        </div>
+      </div>
+      <div class="testimonial-controls" role="region" aria-label="Testimonial navigation">
+        <button type="button" aria-controls="testimonial-0" aria-selected="true" aria-label="Show testimonial 1" tabindex="0">1</button>
+        <button type="button" aria-controls="testimonial-1" aria-selected="false" aria-label="Show testimonial 2" tabindex="-1">2</button>
+        <button type="button" aria-controls="testimonial-2" aria-selected="false" aria-label="Show testimonial 3" tabindex="-1">3</button>
+        <button type="button" aria-controls="testimonial-3" aria-selected="false" aria-label="Show testimonial 4" tabindex="-1">4</button>
+      </div>
+    </section>
+
+    <section id="blog" class="content-section" role="region" aria-label="Latest Blog Articles">
+      <h2>From Our Blog</h2>
+      <div id="blog-articles">
+        <article class="blog-article" tabindex="0">
+          <h3><a href="#">The Art of Floral Layering: Tips and Techniques</a></h3>
+          <p>Discover how to create stunning flower arrangements by layering different shapes, sizes, and textures to delight the senses and create stunning visual stories.</p>
+        </article>
+        <article class="blog-article" tabindex="0">
+          <h3><a href="#">Spring Flower Trends for 2024</a></h3>
+          <p>Explore the latest seasonal flowers and trending color palettes for spring 2024 to keep your floral decor fresh and contemporary.</p>
+        </article>
+        <article class="blog-article" tabindex="0">
+          <h3><a href="#">Eco-Friendly Flower Care Practices</a></h3>
+          <p>Learn how to care for your flowers sustainably with water-efficient techniques and natural fertilizers, reducing waste and preserving nature.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="faqs" class="content-section" role="region" aria-label="Frequently Asked Questions">
+      <h2>Frequently Asked Questions</h2>
+      <ul>
+        <li><strong>What flowers are best for a summer bouquet?</strong> Seasonal favorites like sunflowers, daisies, and roses are perfect for summer celebrations.</li>
+        <li><strong>How often should I prune my flowering shrubs?</strong> Generally, prune after blooming ends to encourage healthy growth into the next season.</li>
+        <li><strong>Can I customize my bouquet?</strong> Yes! Use our bouquet builder tool to select your favorite flowers and design a truly unique arrangement.</li>
+        <li><strong>Do you offer delivery?</strong> Yes, we offer local deliveries with careful packaging to ensure freshness.</li>
+        <li><strong>What is your cancellation policy for events?</strong> Event bookings can be canceled up to 7 days prior for a full refund.</li>
+      </ul>
+    </section>
+
+    <section id="feedback" class="content-section" role="region" aria-label="Customer Feedback">
+      <h2>Your Feedback Matters</h2>
+      <p>Have you used PetalForge services? We want to hear from you! Your reviews help us grow and improve continuously.</p>
+      <form id="feedback-form" aria-label="Feedback form">
+        <label for="name">Name *</label>
+        <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name" />
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" placeholder="Your email" required autocomplete="email" />
+        <label for="message">Your Feedback *</label>
+        <textarea id="message" name="message" placeholder="Write your feedback here..." required></textarea>
+        <button type="submit" aria-label="Submit feedback">Submit Feedback</button>
+      </form>
+      <div id="feedback-success" role="alert" aria-live="polite" style="display:none; margin-top:24px; color: green; font-weight: 700;">Thank you for your feedback!</div>
+    </section>
+
+    <section id="contact-info" role="region" aria-label="Contact Information">
+      <h2>Contact & Visit Us</h2>
+      <p>For consultations, bookings, or inquiries, reach out by phone, email, or visit our atelier located in Brooklyn.</p>
+      <p><strong>Phone:</strong> <a href="tel:+18880092323">+1 (888) 009-2323</a></p>
+      <p><strong>Email:</strong> <a href="mailto:contact@petalforge.com">contact@petalforge.com</a></p>
+      <p><strong>Address:</strong> 101 Johnson St, Brooklyn, NY 11201, USA</p>
+    </section>
+
+    <section id="disclaimer" class="content-section" role="region" aria-label="Disclaimer">
+      <h2>Disclaimer</h2>
+      <p class="disclaimer">PetalForge provides artistic flower arrangement and pruning services as a creative offering for decorative and personal use. While we strive for quality and freshness, natural variation in flowers and individual allergies or sensitivities may occur. We recommend consulting a professional for allergy concerns and specific horticultural needs.</p>
+    </section>
+
+    <section class="customer-sat" role="region" aria-label="Customer satisfaction statement">
+      <h2>Committed to Increasing Customer Satisfaction</h2>
+      <p>At PetalForge, our mission is to delight every customer with personalized experiences, stunning floral artistry, and unmatched care. We measure our success by your smile and inspiration.</p>
+    </section>
+  </main>
+
+  <footer role="contentinfo" aria-label="Footer with address and contact">
+    <div class="address" tabindex="0">Address: 101 Johnson St, Brooklyn, NY 11201, USA</div>
+    <div>© 2024 PetalForge. All rights reserved.</div>
+  </footer>
+
+<script>
+  // Scroll progress bar
+  const progressBar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (docHeight > 0) ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = scrollPercent + '%';
+  });
+
+  // Bouquet builder interaction
+  const flowerCards = document.querySelectorAll('.flower-card');
+  const selectedList = document.getElementById('selected-list');
+
+  let selectedFlowers = [];
+
+  function updateSelectedFlowers() {
+    if (selectedFlowers.length === 0) {
+      selectedList.innerHTML = '<p>No flowers selected yet. Start building your bouquet!</p>';
+      selectedList.setAttribute('aria-label', 'No flowers selected');
+      return;
+    }
+    selectedList.setAttribute('aria-label', 'Selected flowers list');
+    selectedList.innerHTML = '';
+    selectedFlowers.forEach((flower, index) => {
+      const item = document.createElement('div');
+      item.className = 'selected-item';
+      item.textContent = flower;
+      const removeIcon = document.createElement('span');
+      removeIcon.textContent = 'cancel';
+      removeIcon.className = 'material-icons';
+      removeIcon.setAttribute('role', 'button');
+      removeIcon.setAttribute('aria-label', 'Remove ' + flower);
+      removeIcon.tabIndex = 0;
+      removeIcon.addEventListener('click', () => {
+        selectedFlowers.splice(index, 1);
+        updateSelectedFlowers();
+        flowerCards.forEach(card => {
+          if(card.dataset.name === flower) {
+            card.classList.remove('selected');
+            card.setAttribute('aria-pressed', 'false');
+          }
+        });
+      });
+      removeIcon.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          removeIcon.click();
+        }
+      });
+      item.appendChild(removeIcon);
+      selectedList.appendChild(item);
+    });
+  }
+
+  flowerCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const flowerName = card.dataset.name;
+      if (selectedFlowers.includes(flowerName)) {
+        selectedFlowers = selectedFlowers.filter(f => f !== flowerName);
+        card.classList.remove('selected');
+        card.setAttribute('aria-pressed', 'false');
+      } else {
+        selectedFlowers.push(flowerName);
+        card.classList.add('selected');
+        card.setAttribute('aria-pressed', 'true');
+      }
+      updateSelectedFlowers();
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+
+  // Feedback form submit handler with mock success message
+  const feedbackForm = document.getElementById('feedback-form');
+  const feedbackSuccess = document.getElementById('feedback-success');
+
+  feedbackForm.addEventListener('submit', e => {
+    e.preventDefault();
+    feedbackSuccess.style.display = 'block';
+    feedbackForm.reset();
+    feedbackForm.querySelector('input,textarea').focus();
+  });
+</script>
+</body>
+</html>
+

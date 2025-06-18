@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PetalForge - Contact Us</title>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<style>
+  :root {
+    --color-cream: #fff8f0;
+    --color-pastel: #f0e9e0;
+    --color-accent: #8b5cf6;
+    --color-accent-light: #cdb4db;
+    --color-text-primary: #3a2a22;
+    --color-text-secondary: #5a4636;
+    --font-serif: 'Merriweather', serif;
+    --font-sans: 'Open Sans', sans-serif;
+    --spacing-unit: 16px;
+    --border-radius: 12px;
+  }
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--color-cream);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.85;
+    font-size: 18px;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-serif);
+    color: var(--color-text-primary);
+    margin-top: 0;
+  }
+  h1 {
+    font-weight: 700;
+    font-size: 3.7rem;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-weight: 700;
+    font-size: 2.7rem;
+    margin-bottom: var(--spacing-unit);
+    border-bottom: 4px solid var(--color-accent);
+    padding-bottom: 10px;
+  }
+  h3 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: var(--spacing-unit);
+    color: #6b46c1;
+  }
+  p {
+    color: var(--color-text-secondary);
+    max-width: 950px;
+    margin-bottom: 1.7rem;
+  }
+  strong {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+  ul, ol {
+    max-width: 750px;
+    margin-left: 1.8rem;
+    margin-bottom: 1.7rem;
+    color: var(--color-text-secondary);
+  }
+  li {
+    margin-bottom: 1.1rem;
+  }
+  .container {
+    max-width: 1150px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 32px 56px 32px;
+  }
+  header {
+    background: var(--color-pastel);
+    padding: 28px 32px 20px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 0.12);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header .logo {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: var(--color-accent);
+    user-select: none;
+  }
+  nav a {
+    margin-left: 38px;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--color-text-primary);
+    padding-bottom: 6px;
+  }
+  nav a:hover, nav a:focus {
+    color: var(--color-accent);
+  }
+  nav a.active {
+    color: #7045c5;
+    font-weight: 700;
+    border-bottom: 3px solid #7045c5;
+    padding-bottom: 8px;
+  }
+  #scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 6px;
+    background: var(--color-accent);
+    width: 0%;
+    z-index: 1000;
+    border-radius: 0 0 12px 12px;
+    transition: width 0.25s ease-out;
+  }
+  main {
+    padding-top: 56px;
+    padding-bottom: 72px;
+  }
+  section {
+    margin-bottom: 72px;
+  }
+  .contact-section {
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  form {
+    max-width: 750px;
+    margin-top: 36px;
+  }
+  label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-family: var(--font-serif);
+  }
+  input, textarea {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #ccc;
+    border-radius: var(--border-radius);
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    margin-bottom: 28px;
+    transition: border-color 0.3s ease;
+  }
+  input:focus, textarea:focus {
+    border-color: var(--color-accent);
+    outline: none;
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.75);
+  }
+  textarea {
+    min-height: 160px;
+    resize: vertical;
+  }
+  button {
+    background: var(--color-accent);
+    border: none;
+    color: white;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.3rem;
+    padding: 18px 38px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    box-shadow: 0 7px 22px rgba(139, 92, 246, 0.5);
+    transition: background-color 0.3s ease;
+  }
+  button:hover, button:focus {
+    background: #7045c5;
+    outline: none;
+    box-shadow: 0 10px 34px rgba(139, 92, 246, 0.85);
+  }
+  footer {
+    background: var(--color-pastel);
+    padding: 40px 32px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    user-select: none;
+  }
+  footer .address,
+  footer .phone {
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  @media (max-width: 700px) {
+    nav a {
+      margin-left: 20px;
+      font-size: 1rem;
+    }
+    main {
+      padding: 40px 20px 64px 20px;
+    }
+    h1 {
+      font-size: 2.9rem;
+      margin-bottom: 22px;
+    }
+    h2 {
+      font-size: 2.1rem;
+      margin-bottom: 18px;
+    }
+    input, textarea {
+      font-size: 1rem;
+    }
+    button {
+      font-size: 1.1rem;
+      padding: 16px 30px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <header role="banner" aria-label="Primary">
+    <div class="container">
+      <div class="logo" tabindex="0">PetalForge</div>
+      <nav role="navigation" aria-label="Primary navigation">
+      <a href="index.html" tabindex="0">Home</a>
+        <a href="privacy.html" tabindex="0">Privacy</a>
+        <a href="terms.html" tabindex="0">Terms & conditons</a>
+        <a href="cookies.html"tabindex="0">Cookies</a>
+        <a href="contact.html" tabindex="0"aria-current="page">Contact us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="contact-section" role="main" aria-label="Contact Information and Form">
+      <h1>Contact PetalForge</h1>
+
+      <p>Welcome to PetalForge’s Contact page. We deeply value your interest, questions, and feedback. Connecting with our clients and community is a cornerstone of our philosophy and success. Whether you’re seeking bespoke floral artistry, event consultations, or want to learn more about our offerings, you have many ways to reach us.</p>
+
+      <h2>Visit Our Atelier</h2>
+      <p>Our studio is a peaceful retreat in Brooklyn, where we craft unique floral creations inspired by nature’s beauty. We invite you to visit to see our latest displays and have a firsthand conversation with our floral artisans.</p>
+
+      <p>We also welcome visits for consultations and workshop registration. Prior appointment booking is recommended to ensure personalized attention.</p>
+
+      <h3>Directions to PetalForge</h3>
+      <p>Located at 101 Johnson St, Brooklyn, NY 11201, our atelier is a short walk from several subway stations and bus stops. Ample street parking is available nearby.</p>
+
+      <h3>Studio Amenities</h3>
+      <ul>
+        <li>Wheelchair accessible entrance and facilities</li>
+        <li>Comfortable seating area for consultations</li>
+        <li>On-site floral gallery and boutique</li>
+        <li>Safe and sanitary environment following all health guidelines</li>
+      </ul>
+
+      <h2>Business Hours</h2>
+      <p>We operate during the following times to serve you better:</p>
+      <ul>
+        <li>Monday to Friday: 9:00 AM – 6:00 PM</li>
+        <li>Saturday: 10:00 AM – 4:00 PM</li>
+        <li>Sunday: Closed</li>
+      </ul>
+
+      <h2>Get in Touch</h2>
+      <p>You can contact us by phone, email, or by filling out the contact form below. Our customer service team is committed to responding promptly to your inquiries.</p>
+
+      <h3>Phone</h3>
+      <p><strong>+1 (888) 009-2323</strong></p>
+
+      <h3>Email</h3>
+      <p>For inquiries: <a href="mailto:contact@petalforge.com">contact@petalforge.com</a></p>
+      <p>For workshop bookings: <a href="mailto:workshops@petalforge.com">workshops@petalforge.com</a></p>
+
+      <h2>Contact Form</h2>
+      <form id="contact-form" aria-label="Contact form">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" placeholder="Your full name" required autocomplete="name" />
+        
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" placeholder="Your email address" required autocomplete="email" />
+        
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="Your phone number" autocomplete="tel" />
+        
+        <label for="subject">Subject *</label>
+        <input type="text" id="subject" name="subject" placeholder="Subject of your message" required />
+        
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+        
+        <button type="submit" aria-label="Send message">Send Message</button>
+      </form>
+
+      <h2>Frequently Asked Questions</h2>
+      <p>We anticipate your questions! Here are some detailed answers to frequently asked inquiries.</p>
+
+      <h3>What floral services does PetalForge offer?</h3>
+      <p>PetalForge specializes in handcrafted floral arrangements personalized for weddings, corporate events, seasonal subscriptions, and everyday beauty. We also provide expert pruning and plant care consultations.</p>
+
+      <h3>How can I schedule a workshop?</h3>
+      <p>Workshops are scheduled monthly. You can inquire and register via our contact form, email, or phone. Group bookings and private sessions are available.</p>
+
+      <h3>Do you deliver flowers?</h3>
+      <p>Yes, we provide local delivery within Brooklyn and surrounding areas, ensuring freshness and presentation quality upon arrival.</p>
+
+      <h3>Can I customize my bouquet online?</h3>
+      <p>Absolutely! Use the <a href="index.html#bouquet-builder">custom bouquet builder</a> on our homepage to create your personalized floral design.</p>
+
+      <h3>What safety measures are in place for customer interaction during COVID-19?</h3>
+      <p>PetalForge maintains strict sanitation, staff health checks, and social distancing policies to ensure a safe environment for all visitors and customers.</p>
+
+      <h2>Customer Testimonials</h2>
+      <p>"Every arrangement from PetalForge feels like a unique piece of art – exquisite and fresh!" – Olivia S.</p>
+      <p>"Their delivery and customer service are impeccable, making every experience delightful." – Mark T.</p>
+      <p>"The workshops are inspiring and educational – highly recommend for flower lovers of all levels." – Jessica W.</p>
+
+      <h2>Our Sustainability Promise</h2>
+      <p>We are dedicated to eco-friendly practices, supporting local flower farms, and using sustainable packaging. This commitment guides our sourcing and services.</p>
+
+      <h2>Community and Corporate Engagement</h2>
+      <p>PetalForge partners with local nonprofits and businesses to create floral art that enhances community events and corporate spaces promoting nature and creativity.</p>
+
+      <h2>Gift Cards and Special Offers</h2>
+      <p>Consider gifting PetalForge experiences with our floral gift cards, perfect for all occasions. Subscribe to our newsletter for seasonal promotions and events.</p>
+
+      <h2>Floral Care Resources</h2>
+      <p>Explore our online guides and blog for expert tips on flower longevity, pruning techniques, and seasonal care.</p>
+
+      <h2>Extended Information</h2>
+      <p>At PetalForge, we believe in transparent communication. Below is extensive content elaborating on our values, team approach, and customer service ethos.</p>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam dignissim magna et orci laoreet, eget convallis magna semper. Maecenas non consectetur tellus, vitae malesuada odio. Curabitur ut nisl est. Morbi et sapien non erat tincidunt condimentum.</p>
+      <p>Praesent in laoreet purus, quis pretium elit. Aenean nisi neque, faucibus ut sodales in, vestibulum sed arcu. Duis pulvinar pretium blandit. Proin porttitor, magna id suscipit semper, metus tellus dapibus dolor, at faucibus nunc justo a velit. Nam sed dictum metus, vitae hendrerit lorem.</p>
+      <p>Fusce suscipit condimentum dolor, et convallis lacus sagittis et. Curabitur a eros in nunc bibendum blandit. Nam eget orci luctus, placerat magna in, lacinia erat. Nullam efficitur lorem nec odio luctus, a viverra sapien varius. Sed nec velit magna.</p>
+      <p>Phasellus nec lorem maximus, faucibus elit ut, eleifend sapien. Aliquam erat volutpat. Sed semper eu lorem non tincidunt. Mauris facilisis purus et interdum maximus. Sed lacinia fringilla tellus, eget viverra risus pellentesque nec.</p>
+      <p>Aenean erat tortor, varius quis sapien nec, dapibus consequat risus. Integer dignissim ornare mi vitae consectetur. Nulla lacinia dolor et velit suscipit cursus. Donec vehicula fringilla ex.</p>
+      <!-- Add many more paragraphs to simulate very long content, alternating topics about PetalForge’s philosophy, services, client care, floral art appreciation, environmental practices, detailed answers, customer education, and more. -->
+    </section>
+  </main>
+
+  <footer role="contentinfo" aria-label="Footer with address and contact">
+    <div class="address" tabindex="0">Address: 101 Johnson St, Brooklyn, NY 11201, USA</div>
+    <div class="phone" tabindex="0">Phone: +1 (888) 009-2323</div>
+    <div>© 2024 PetalForge. All rights reserved.</div>
+  </footer>
+
+<script>
+  // Scroll progress bar
+  const progressBar = document.getElementById('scroll-progress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (docHeight > 0) ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = scrollPercent + '%';
+  });
+
+  // Contact form submission mock
+  const form = document.getElementById('contact-form');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    alert('Thank you for contacting PetalForge. We will get back to you shortly.');
+    form.reset();
+  });
+</script>
+</body>
+</html>
